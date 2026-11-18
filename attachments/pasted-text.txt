@@ -1,0 +1,152 @@
+QatraTherm — Complete 3D Engineering Experience Redesign
+
+Act as a senior Three.js engineer, industrial visualization specialist and premium UI/UX designer.
+
+I will provide you with my existing QatraTherm 3D prototype HTML source code. Your task is to deeply analyse the existing project and redesign it into a professional, immersive and fully responsive interactive 3D engineering visualization.
+
+Do not start from zero. Preserve the existing engineering work and improve its visual quality, usability and interaction design.
+
+1. Project identity
+
+QatraTherm is an integrated solar-powered water treatment and energy valorization concept, based on a conceptual case study in Tendla, El Meghaïer, Algeria.
+
+The installation combines:
+
+- Groundwater extraction and pretreatment.
+- Photovoltaic-thermal (PV/T) collectors.
+- Buffer storage.
+- Reverse osmosis desalination.
+- Potable water treatment and storage.
+- Concentrated solar thermal collectors (CSP).
+- Steam generation and micro-turbine electricity generation.
+- Separate brine management through lined solar evaporation basins.
+- Intelligent process supervision and control.
+
+2. Preserve the existing 3D engineering model
+
+Analyse and retain the existing:
+
+- Industrial site and six functional zones.
+- PV field and eight-layer PV/T cutaway.
+- Groundwater well and pretreatment equipment.
+- Reverse osmosis skid and exploded technical view.
+- Potable water branch.
+- CSP collectors and turbine-generator block.
+- Brine evaporation and potential crystallization basins.
+- Hydraulic, thermal, electrical and control connections.
+- Animated water, steam and electricity flows.
+- Interactive equipment inspection and technical specifications.
+- SCADA instrumentation and presentation tour.
+
+Do not invent new engineering connections or change the process architecture without justification.
+
+3. Most important redesign: intelligent sliding panels
+
+The current technical panels obstruct the 3D model. This must be fixed.
+
+Implement a modern panel interaction system:
+
+A. Collapsible navigation panel
+
+- A compact navigation control remains accessible.
+- Clicking it opens a panel from the left.
+- Clicking again closes it completely.
+- The 3D model becomes fully visible when the panel is closed.
+
+B. Equipment inspection panel
+
+- When a user clicks a 3D component, open its technical information in a panel sliding from the right.
+- Include equipment name, function, inputs, outputs, sensors and technical relationships.
+- Add an obvious close button.
+- Allow the user to close the panel and return to the unobstructed 3D view.
+- Do not permanently cover the installation.
+
+C. SCADA panel
+
+- Open and close independently.
+- Display process measurements, instrumentation and control information.
+- Use a compact dashboard layout.
+- Clearly distinguish illustrative or simulated values from real measurements.
+
+D. Interaction requirements
+
+- Smooth slide-in and slide-out transitions.
+- Panels must not unexpectedly cover the central 3D model.
+- Allow only the necessary panel to be open at a time.
+- Provide keyboard Escape support.
+- Preserve the user's camera position when opening or closing panels.
+- Keep controls accessible without cluttering the scene.
+
+The default experience should show the 3D installation with minimal interface elements.
+
+4. Visual redesign
+
+Create a premium industrial engineering aesthetic:
+
+- Dark navy / charcoal interface.
+- Blue for water.
+- Orange for thermal energy and steam.
+- Green for brine.
+- Purple for automation and control.
+- Clean typography, precise spacing and subtle glass effects.
+- Professional technical labels and readable equipment identification.
+
+The installation must remain the visual centre of attention.
+
+5. Immersive 3D interaction
+
+Improve:
+
+- Orbit, zoom and pan controls.
+- Camera presets for each functional zone.
+- Smooth transitions between camera positions.
+- Component selection and highlighting.
+- Exploded technical views.
+- Water, thermal and electrical flow animations.
+- Guided presentation mode for project demonstrations.
+
+Include a dedicated button to enter an immersive full-screen 3D mode, hiding unnecessary interface elements.
+
+6. Responsive experience
+
+Design for:
+
+- Smartphones: 320–430px.
+- Large phones: 431–767px.
+- Tablets: 768–1023px.
+- Desktop: 1024px and above.
+
+On mobile:
+
+- Make the 3D model the main focus.
+- Replace large side panels with compact drawers or bottom sheets.
+- Support touch interactions.
+- Keep controls accessible and prevent overlap.
+- Optimize rendering performance.
+
+7. Technical requirements
+
+- Preserve Three.js functionality and existing component data.
+- Use clean, maintainable HTML, CSS and JavaScript.
+- Avoid unnecessary dependencies.
+- Optimize WebGL rendering and device pixel ratio.
+- Avoid breaking existing animations and interactions.
+- Preserve the creator signature: B.Yaakoub.
+- Keep the project deployable as a standalone web application.
+
+8. Quality assurance
+
+Before finishing:
+
+1. Analyse the original source code.
+2. Identify existing bugs and UX problems.
+3. Implement the redesign.
+4. Test all component interactions.
+5. Test panel opening and closing.
+6. Verify that the 3D camera remains stable.
+7. Test mobile portrait and landscape.
+8. Confirm that all original engineering zones and process flows remain present.
+
+Deliver the complete working redesigned project, not just a mockup or visual proposal.
+
+Final objective: Create a premium interactive industrial 3D experience where users can explore QatraTherm naturally, inspect technical details when needed, and always return to a clean, unobstructed view of the complete installation.

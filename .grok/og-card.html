@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<style>
+  html, body { margin: 0; padding: 0; width: 1200px; height: 630px; overflow: hidden; background: #070B12; }
+  body { position: relative; font-family: "Liberation Sans Narrow", "Liberation Sans", sans-serif; }
+  svg.scene { position: absolute; inset: 0; width: 1200px; height: 630px; display: block; }
+  .lockup {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 132px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 4;
+  }
+  h1 {
+    margin: 0;
+    font-weight: 700;
+    font-size: 96px;
+    letter-spacing: 0.01em;
+    line-height: 0.92;
+    color: #F4F7F8;
+    text-shadow: 0 8px 22px rgba(7,11,18,0.55);
+  }
+  .rule {
+    width: 64px;
+    height: 3px;
+    margin: 16px 0 12px;
+    background: #E36A24;
+    border-radius: 2px;
+  }
+  .tag {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.46em;
+    color: #C4B49A;
+    padding-left: 0.46em;
+    text-shadow: 0 2px 8px rgba(7,11,18,0.8);
+  }
+  .where {
+    margin-top: 7px;
+    font-family: "Liberation Sans", sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.38em;
+    color: #B7C0C7;
+    padding-left: 0.38em;
+  }
+  .sig {
+    position: absolute;
+    right: 44px;
+    bottom: 36px;
+    z-index: 5;
+    font-family: "Liberation Sans", sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    color: rgba(232,236,239,0.82);
+  }
+</style>
+</head>
+<body>
+<svg class="scene" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#070B12"/>
+      <stop offset="52%" stop-color="#101722"/>
+      <stop offset="74%" stop-color="#2a241c"/>
+      <stop offset="100%" stop-color="#5c4a38"/>
+    </linearGradient>
+    <radialGradient id="sun" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffe1bf"/>
+      <stop offset="28%" stop-color="#E36A24"/>
+      <stop offset="100%" stop-color="#E36A24" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#8d7862"/>
+      <stop offset="22%" stop-color="#4e4236"/>
+      <stop offset="100%" stop-color="#14110e"/>
+    </linearGradient>
+    <linearGradient id="cyl" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#2e363e"/>
+      <stop offset="32%" stop-color="#e6ecef"/>
+      <stop offset="58%" stop-color="#8b959e"/>
+      <stop offset="100%" stop-color="#161c22"/>
+    </linearGradient>
+    <linearGradient id="dish" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f7fafb"/>
+      <stop offset="45%" stop-color="#c5ced4"/>
+      <stop offset="100%" stop-color="#2c3642"/>
+    </linearGradient>
+    <linearGradient id="tube" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f5f8f9"/>
+      <stop offset="50%" stop-color="#8e99a3"/>
+      <stop offset="100%" stop-color="#24303a"/>
+    </linearGradient>
+    <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#8fd0ff"/>
+      <stop offset="45%" stop-color="#3AA0FF"/>
+      <stop offset="100%" stop-color="#0a335c"/>
+    </linearGradient>
+    <linearGradient id="pv" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2a415c"/>
+      <stop offset="60%" stop-color="#0e1620"/>
+      <stop offset="100%" stop-color="#12324c"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#sky)"/>
+  <circle cx="980" cy="198" r="160" fill="url(#sun)"/>
+  <circle cx="980" cy="198" r="16" fill="#ffc48a"/>
+  <path d="M0 348 C 200 312 380 372 640 334 C 880 302 1040 356 1200 322 L1200 430 L0 430 Z" fill="#322a23"/>
+  <path d="M0 390 C 240 356 480 430 760 392 C 960 366 1100 410 1200 384 L1200 630 L0 630 Z" fill="url(#ground)"/>
+</svg>
+<script>
+const svg = document.querySelector("svg.scene");
+const NS = "http://www.w3.org/2000/svg";
+function el(name, attrs, parent) {
+  const n = document.createElementNS(NS, name);
+  for (const [k, v] of Object.entries(attrs)) n.setAttribute(k, String(v));
+  (parent || svg).appendChild(n);
+  return n;
+}
+
+// Photovoltaic field, left of center, on the ground plane
+const pv = el("g", { transform: "translate(36 336) skewX(-12) scale(1 0.55)" });
+for (let r = 0; r < 3; r++) {
+  for (let c = 0; c < 7; c++) {
+    const hot = (r * 3 + c) % 4 === 0;
+    el("rect", {
+      x: c * 48, y: r * 36, width: 42, height: 28, rx: 1,
+      fill: hot ? "#1a4e78" : "url(#pv)",
+      stroke: "#B7C0C7", "stroke-opacity": 0.45, "stroke-width": 1
+    }, pv);
+    el("path", {
+      d: `M${c * 48 + 3} ${r * 36 + 3} L${c * 48 + 16} ${r * 36 + 3}`,
+      stroke: "#d7ecff", "stroke-opacity": hot ? 0.8 : 0.25, "stroke-width": 1.4
+    }, pv);
+  }
+}
+
+// Parabolic trough field in perspective: long mirrors run toward a dusk vanishing point.
+const vanishX = 690;
+const vanishY = 352;
+function troughLane(i, lanes) {
+  const frontY = 548;
+  const xL = 70 + i * ((980 - 70) / (lanes - 1));
+  const xR = xL + 78;
+  const t = 0.78;
+  const bxL = xL + (vanishX - xL) * t;
+  const bxR = xR + (vanishX - xR) * t;
+  const by = frontY + (vanishY - frontY) * t;
+  const g = el("g", {});
+  el("polygon", {
+    points: `${xL},${frontY} ${xR},${frontY + 10} ${bxR},${by + 4} ${bxL},${by}`,
+    fill: "#d5dee4", opacity: 0.95
+  }, g);
+  el("polygon", {
+    points: `${xL + 8},${frontY - 2} ${xR - 10},${frontY + 6} ${bxR - 4},${by + 2} ${bxL + 3},${by}`,
+    fill: "#8b98a3"
+  }, g);
+  const mx1 = (xL + xR) / 2;
+  const my1 = frontY + 2;
+  const mx2 = (bxL + bxR) / 2;
+  const my2 = by + 1;
+  el("line", {
+    x1: mx1, y1: my1, x2: mx2, y2: my2,
+    stroke: "#E36A24", "stroke-width": 3.2, "stroke-linecap": "round"
+  }, g);
+  // pylons along the lane
+  for (const u of [0.18, 0.42, 0.66]) {
+    const px = mx1 + (mx2 - mx1) * u;
+    const py = my1 + (my2 - my1) * u;
+    el("rect", { x: px - 1.3, y: py, width: 2.6, height: 16 - u * 8, fill: "#5e6870" }, g);
+  }
+}
+for (let i = 0; i < 7; i++) troughLane(i, 7);
+
+// Control room, flat industrial roof
+el("rect", { x: 986, y: 324, width: 140, height: 52, fill: "#121A26", stroke: "#2a3544", "stroke-width": 1 });
+el("rect", { x: 986, y: 318, width: 140, height: 8, fill: "#1c2633" });
+el("rect", { x: 1004, y: 338, width: 26, height: 14, fill: "#9B8CFF" });
+el("rect", { x: 1038, y: 338, width: 26, height: 14, fill: "#2EA66A" });
+el("rect", { x: 1072, y: 338, width: 26, height: 14, fill: "#3AA0FF", opacity: 0.9 });
+
+function tank(x, y, w, h, band) {
+  const ry = Math.max(6, w * 0.15);
+  el("ellipse", { cx: x + w / 2, cy: y + h + 8, rx: w * 0.7, ry: 7, fill: "#000", opacity: 0.38 });
+  el("rect", { x, y, width: w, height: h, fill: "url(#cyl)" });
+  el("ellipse", { cx: x + w / 2, cy: y, rx: w / 2, ry, fill: "#e7eef2" });
+  el("ellipse", { cx: x + w / 2, cy: y, rx: w / 2 - 3.5, ry: Math.max(3, ry - 2.2), fill: "#8f9aa3" });
+  if (band) el("rect", { x, y: y + h * 0.58, width: w, height: 7, fill: band });
+  el("rect", { x: x + w * 0.2, y: y + 14, width: 3, height: h - 26, fill: "#fff", opacity: 0.3 });
+}
+tank(978, 392, 54, 150, "#3AA0FF");
+tank(1044, 356, 68, 186, "#2EA66A");
+tank(1124, 418, 46, 124, "#E36A24");
+
+// Reverse-osmosis skid
+const sx = 48, sy = 456;
+el("ellipse", { cx: sx + 128, cy: sy + 118, rx: 132, ry: 12, fill: "#000", opacity: 0.4 });
+el("rect", { x: sx, y: sy + 96, width: 248, height: 14, rx: 2, fill: "#171d26", stroke: "#B7C0C7", "stroke-width": 1.1 });
+el("rect", { x: sx + 10, y: sy + 88, width: 228, height: 10, fill: "#2c3744" });
+for (let i = 0; i < 4; i++) {
+  const y = sy + 16 + i * 17;
+  el("rect", { x: sx + 36, y, width: 146, height: 12, rx: 6, fill: "url(#tube)" }, svg);
+  el("rect", { x: sx + 30, y: y - 1, width: 8, height: 14, rx: 1, fill: "#d5dde3" });
+  el("rect", { x: sx + 180, y: y - 1, width: 8, height: 14, rx: 1, fill: "#d5dde3" });
+}
+el("rect", { x: sx + 192, y: sy + 12, width: 9, height: 74, rx: 3, fill: "#3AA0FF" });
+el("rect", { x: sx + 18, y: sy + 12, width: 9, height: 74, rx: 3, fill: "#9B8CFF" });
+el("rect", { x: sx + 210, y: sy + 52, width: 30, height: 34, rx: 3, fill: "#121A26", stroke: "#B7C0C7", "stroke-width": 1.2 });
+el("circle", { cx: sx + 225, cy: sy + 69, r: 8, fill: "#10161e", stroke: "#E36A24", "stroke-width": 2.2 });
+el("rect", { x: sx + 210, y: sy + 18, width: 30, height: 26, rx: 2, fill: "#0c1016", stroke: "#9B8CFF", "stroke-width": 1.3 });
+el("circle", { cx: sx + 219, cy: sy + 31, r: 2.3, fill: "#9B8CFF" });
+el("circle", { cx: sx + 227, cy: sy + 31, r: 2.3, fill: "#2EA66A" });
+el("circle", { cx: sx + 235, cy: sy + 31, r: 2.3, fill: "#E36A24" });
+
+// Foreground water
+el("path", {
+  d: "M0 586 C 180 570 340 604 560 578 C 780 552 960 598 1200 568 L1200 630 L0 630 Z",
+  fill: "url(#water)"
+});
+el("path", {
+  d: "M40 592 C 220 578 420 608 680 584 C 900 566 1060 600 1160 582",
+  fill: "none", stroke: "#e7f5ff", "stroke-opacity": 0.4, "stroke-width": 1.6
+});
+el("path", {
+  d: "M0 584 C 200 572 360 598 520 582",
+  fill: "none", stroke: "#2EA66A", "stroke-opacity": 0.7, "stroke-width": 3
+});
+
+// Edge vignette only — keep the lockup sky clean
+el("rect", { x: 0, y: 0, width: 1200, height: 90, fill: "#070B12", opacity: 0.35 });
+el("rect", { x: 0, y: 560, width: 1200, height: 70, fill: "#070B12", opacity: 0.28 });
+</script>
+<div class="lockup">
+  <h1>QatraTherm</h1>
+  <div class="rule"></div>
+  <div class="tag">Tendla</div>
+  <div class="where">EL MEGHA&#207;ER</div>
+</div>
+<div class="sig">B.Yaakoub</div>
+</body>
+</html>
